@@ -4,7 +4,7 @@ use smart_pointers::MyBox;
 fn hello(name: &str) {
     println!("Hello {}", name);
 }
-
+#[derive(Debug)]
 struct CustomSmartPointer {
     data: String,
 }
@@ -39,5 +39,13 @@ fn main() {
         data: String::from("this is also going to the bin..."),
     };
 
-    println!("Smart pointers created...")
+    println!("Smart pointers created...");
+
+    let f = CustomSmartPointer {
+        data: String::from("forced drop..."),
+    };
+
+    println!("SmartPointer to be force-dropped created...");
+
+    drop(f);
 }
