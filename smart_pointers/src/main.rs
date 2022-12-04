@@ -5,6 +5,16 @@ fn hello(name: &str) {
     println!("Hello {}", name);
 }
 
+struct CustomSmartPointer {
+    data: String,
+}
+
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data `{}`", self.data);
+    }
+}
+
 fn main() {
     let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
     println!("Cons list: {:?}", list);
@@ -19,4 +29,15 @@ fn main() {
     // Deref works on MyBox with other times that implement Deref
     let name = MyBox::new(String::from("Bruno"));
     hello(&name);
+
+    // Drop trait
+    let _c = CustomSmartPointer {
+        data: String::from("this is cool and is going to the bin..."),
+    };
+
+    let _d = CustomSmartPointer {
+        data: String::from("this is also going to the bin..."),
+    };
+
+    println!("Smart pointers created...")
 }
