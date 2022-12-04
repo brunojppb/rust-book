@@ -47,6 +47,28 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/// Search for the given query in the given content string.
+/// 
+/// # Examples
+/// 
+/// ```
+/// use minigrep;
+/// 
+/// let contents = "\
+/// Rust, the programming language
+/// powerful and fast
+/// Rust shines without a sweat.
+/// ";
+/// let query = "Rust";
+/// let result = minigrep::search(query, contents);
+/// 
+/// assert_eq!(
+///   vec![
+///     "Rust, the programming language",
+///     "Rust shines without a sweat."
+///   ],
+///  result);
+/// ```
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     contents
       .lines()
