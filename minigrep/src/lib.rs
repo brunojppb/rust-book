@@ -1,3 +1,9 @@
+//! # minigrep
+//!
+//! `minigrep` is a collection of utilities to search for text
+//! within the given file. It's a super minimal version of the `grep`
+//! CLI tool.
+//! 
 use std::{env, error::Error, fs};
 
 pub struct Config {
@@ -46,7 +52,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
-
+///
 /// Search for the given query in the given content string.
 /// 
 /// # Examples
