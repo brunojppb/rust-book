@@ -36,3 +36,38 @@ where
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::cell::RefCell;
+
+    use super::*;
+
+    struct MockMessager {
+        sent_messages: RefCell<Vec<String>>,
+    }
+
+    impl MockMessager {
+        fn new() -> Self {
+            Self {
+                sent_messages: RefCell::new(vec![]),
+            }
+        }
+    }
+
+    impl Messenger for MockMessager {
+        fn send(&self, msg: &str) {
+            self.sent_messages.borrow_mut().push(String::from(msg));
+        }
+    }
+
+    #[test]
+    fn it_sends_an_over_75_percent_warning_message() {
+        let mock_messager = MockMessager::new();
+        let mut limit_tracker = LimitTracker::new(&mock_messager, 100);
+
+        limit_tracker.set_value(80);
+
+        assert_eq!(mock_messager.sent_messages.borrow().len(), 1);
+    }
+}
